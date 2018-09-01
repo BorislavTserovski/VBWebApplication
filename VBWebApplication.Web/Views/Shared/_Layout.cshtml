@@ -30,6 +30,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index"><span class="navbarText">Users</span></a></li>
+                    }
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
@@ -42,11 +46,13 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
+        @if (TempData.ContainsKey(WebConstants.SuccessMessageKey))
+        {
+            <div class="alert alert-success">
+                @TempData[WebConstants.SuccessMessageKey]
+            </div>
+        }
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - VBWebApplication.Web</p>
-        </footer>
     </div>
 
     <environment include="Development">
